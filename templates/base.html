@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Crypto</title>
+    <!-- Bootstrap5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- Alternative to Bootstrap 3 Glyphicons -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"> -->
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'crypto_website/css/master.css' %}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="path/to/font-awesome/css/font-awesome.min.css"
+    />
+  </head>
+  <body id="my-font">
+    <nav
+      class="navbar navbar-expand-sm sticky-xl-top navbar-dark bg-dark"
+      role="navigation"
+    >
+      <div class="container-fluid">
+        <div class="navbar-nav">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo02"
+            aria-controls="navbarTogglerDemo02"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            {% if user.is_authenticated %}
+            <ul
+              class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+              style="--bs-scroll-height: 100px;"
+            >
+              <li class="nav-item">
+                <a class="navbar-nav navbar-brand" href="{% url 'home' %}"
+                  >Home</a
+                >
+              </li>
+              <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+              <li class="nav-item"></li>
+              <a
+                class="navbar-nav nav-link"
+                href="{% url 'market:market_list' %}"
+                >Market</a
+              >
+              <li class="nav-item"></li>
+
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarScrollingDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  href="#"
+                >
+                  More
+                </a>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarScrollingDropdown"
+                >
+                  <li>
+                    <a class="dropdown-item" href="{% url 'accounts:your_profile' %}"
+                      >Profile</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="{% url 'portfolio:portfolio' %}"
+                      >Portfolio</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item d-flex">
+                <a
+                  class="navbar-nav nav-link"
+                  href="{% url 'accounts:logout' %}"
+                  >Logout</a
+                >
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="navbar-nav navbar-brand" href="{% url 'home' %}"
+                  >Home</a
+                >
+              </li>
+              <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+              <li class="nav-item"></li>
+              <a
+                class="navbar-nav nav-link"
+                href="{% url 'market:market_list' %}"
+                >Market</a
+              >
+              <li class="nav-item"></li>
+              <li class="nav-item">
+                <a class="navbar-nav nav-link" href="{% url 'accounts:login' %}"
+                  >Login</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="navbar-nav nav-link"
+                  href="{% url 'accounts:signup' %}"
+                  >Sign up</a
+                >
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>
+
+<!-- #JS Bootstrap5 -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+  crossorigin="anonymous"
+></script>
+<div class="container shadow-lg p-3 mb-5 bg-body rounded">
+  {% block content %} {% endblock %}
+</div>

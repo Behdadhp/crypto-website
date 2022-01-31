@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<form class="container text-center"  method="POST">
+  <h1>Update the Price</h1>
+    {% csrf_token %}
+    {{ form.as_p }}
+  <input type="submit" value="submit" class="btn btn-success">
+</form>
+{% endblock %}

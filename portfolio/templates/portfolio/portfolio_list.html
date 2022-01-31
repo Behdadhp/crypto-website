@@ -1,0 +1,86 @@
+{% extends "portfolio/portfolio_base.html" %} {% block content %}
+
+<div class="container">
+  <div class="row text-center">
+    <div class="col-sm-6">
+      <h1>Welcome back {{user.first_name}}</h1>
+      <br />
+      <a class="btn btn-primary" href="{% url 'portfolio:create' %}"
+        >Add new Asset</a>
+    </div>
+    <div class="col-sm-6">
+      <h1>Your portfolio:</h1>
+      <br />
+      <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+        <table class="table table-striped">
+          <thead>
+            <td>Name</td>
+            <td>Amout</td>
+            <td>Price $</td>
+            <td>Value $</td>
+          </thead>
+          {% for item in asset %}
+          <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.asset}}</td>
+            <td>{{item.current_price}}</td>
+            <td>{{item.value}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <h1>Last Activities:</h1>
+      <br>
+      <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+        <table class="table table-striped">
+          <thead>
+            <td>Asset</td>
+            <td>Amount</td>
+            <td>Price</td>
+            <td>Date</td>
+            <td>Delete</td>
+          </thead>
+          {% for investor in portfolio_lists %}
+          <tr>
+            {% if investor.user.username == user.username %}
+             {% if investor.status == "Buy" %}
+            <td>
+              <a href="{% url 'portfolio:detail' pk=investor.pk %}"
+                >{{investor.type}}</a
+              >
+            </td>
+            <td class="text-success">+ {{investor.amount}}</td>
+            <td>{{investor.price_paid}}</td>
+            <td>{{ investor.date }}</td>
+            <td>
+              <a
+                class="btn btn-danger btn-sm"
+                href="{% url 'portfolio:delete' pk=investor.pk %}"
+              ></a>
+            </td>
+            {% elif investor.status == "Sell" %}
+            <td>
+              <a href="{% url 'portfolio:detail' pk=investor.pk %}"
+                >{{investor.type}}</a
+              >
+            </td>
+            <td class="text-danger">- {{investor.amount}}</td>
+            <td>{{investor.price_paid}}</td>
+            <td>{{ investor.date }}</td>
+            <td>
+              <a
+                class="btn btn-danger btn-sm"
+                href="{% url 'portfolio:delete' pk=investor.pk %}"
+              ></a>
+            </td>
+          </tr>
+          {% endif %}
+           {% endif %}
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

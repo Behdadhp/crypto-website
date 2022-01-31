@@ -1,0 +1,17 @@
+<div class=" text-center">
+  <table class="table table-hover table-custom table-dark container"  >
+    <thead>
+      <td>Rank</td>
+      <td>Coin</td>
+      <td>Label</td>
+      <td>Price</td>
+    </thead>
+      <tr>
+        <td>{{market.id}}</td>
+        <td>{{market.coin}}</td>
+        <td>{{market.label}}</td>
+        <td><a href="{% url 'market:update' pk=market.id %}">{{market.price}}$</a></td>
+      </tr>
+
+  </table>
+  <ul>

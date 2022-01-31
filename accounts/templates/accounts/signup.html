@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container">
+  <div class="text-center">
+
+  <h1>Sign Up</h1>
+</div>
+  <form  method="POST", class="">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    {% buttons %} <br>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
+    {% endbuttons %}
+</div>
+{% endblock %}

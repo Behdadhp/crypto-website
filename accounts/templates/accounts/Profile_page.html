@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>Your Profile</h1>
+    </div>
+    <div class="col-sm-3">
+      <h5 class="text-center">
+        First name: <br />
+        Last name: <br />
+        Username: <br />
+        Email address: <br />
+      </h5>
+    </div>
+    <div class="col-sm-3 text-start">
+      <h5>
+        {{user.first_name}} <br />
+        {{user.last_name}} <br />
+        @{{user.username}} <br />
+        {{user.email}} <br />
+      </h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <a class="btn btn-primary" href="{% url 'accounts:update' pk=user.id %}"
+        >Edit</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %}
