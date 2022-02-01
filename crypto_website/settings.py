@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS =[STATIC_DIR]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -140,3 +140,6 @@ LOGOUT_REDIRECT_URL = 'thanks'
 
 
 INTERNAL_IPS=['127.0.0.1']
+
+import django_heroku
+django_heroku.settings(locals())
