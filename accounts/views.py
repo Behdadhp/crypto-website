@@ -9,10 +9,10 @@ from market.models import Market
 class SignUp(CreateView):
     form_class = forms.UserCreateForm
     success_url = reverse_lazy("login")
-    template_name = "accounts/SignUp.html"
+    template_name = "accounts/signup.html"
 
 class ProfilePage(TemplateView):
-    template_name="accounts/profile_page.html"
+    template_name="accounts/Profile_page.html"
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
