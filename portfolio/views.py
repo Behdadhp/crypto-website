@@ -24,11 +24,11 @@ class PortfolioList(generic.ListView , LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset_portfolio = models.Portfolio.objects.filter(user_id = self.request.user)
+        queryset_portfolio_user = models.Portfolio.objects.filter(user_id = self.request.user)
 
 
 #  Total Asset of each coin:
-        portfolioList = total_assets(queryset_portfolio)
+        portfolioList = total_assets(queryset_portfolio_user)
         context['asset']= portfolioList
 
         return context
@@ -61,7 +61,7 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
         context = super().get_context_data(**kwargs)
 
         queryset_portfolio_user = models.Portfolio.objects.filter(user_id = self.request.user)
-        queryset_portfoilio_id = models.Portfolio.objects.filter(id=self.kwargs['pk']).values()
+        queryset_portfoilio_id = models.Portfolio.objects.filter(user_id = self.request.user, id=self.kwargs['pk']).values()
         queryset_portfolio = models.Portfolio.objects.all()
         queryset_market = models.Market.objects.all()
         queryset_market_values = models.Market.objects.values()
@@ -77,7 +77,7 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
                                 'status':j['status']})
 
         context['each_asset']= each_asset
-
+        context['test'] = queryset_portfoilio_id[0]
 # determination of each asset in portfolio
         portfolio=[]
         for item in queryset_portfolio_user:
@@ -86,7 +86,7 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
         context ['portfolio'] = portfolio
 
 #  Total Asset of each coin:
-        portfolioList = total_assets(queryset_portfolio)
+        portfolioList = total_assets(queryset_portfolio_user)
         context['asset']= portfolioList
 
 # Value of each coin in DetailView
@@ -97,6 +97,7 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
             if each_coin == i['name']:
                 overal = i['asset']
         context['overal'] = overal
+
 
         return context
 
@@ -112,10 +113,10 @@ class PortfolioDelete(LoginRequiredMixin,generic.DeleteView):
 # Function
 
 # Total asset of each coin
-def total_assets(queryset_portfolio):
+def total_assets(queryset_portfolio_user):
 
     portfolio=[]
-    for item in queryset_portfolio:
+    for item in queryset_portfolio_user:
             portfolio.append(({'type':item.type.coin,'amount':item.amount,
             'status':item.status}))
 
