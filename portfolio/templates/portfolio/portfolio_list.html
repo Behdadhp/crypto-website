@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row text-center">
     <div class="col-sm-6">
-      <h1>Welcome back {{user.first_name}}</h1>
+      <h1>Welcome back {{user.first_name |title}}</h1>
       <br />
       <a class="btn btn-primary" href="{% url 'portfolio:create' %}"
         >Add new Asset</a>
