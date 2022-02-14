@@ -6,7 +6,7 @@ from django.db import models
 from djnago.contrib.auth import get_user_model
 User = get_user_model()
 
-class ContactUser(models.Model):
+class ContactUs(models.Model):
     user    = models.ForeignKey(User,related_name='usernames',blank=False,null=False,on_delete=models.CASCADE)
     date    = models.DateTimeField(default=datetime.now, blank=False, null=False)
     email   = models.EmailField(max_length=255, blank=False, null=False)
