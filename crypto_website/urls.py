@@ -26,8 +26,8 @@ urlpatterns = [
     path('welcome/',views.WelcomePage.as_view(), name='welcome'),
     path('thanks/', views.ThanksPage.as_view(), name='thanks'),
     path('market/',include('market.urls',namespace='market')),
-    path('about/',views.AboutPage.as_view(), name='about'),
-    path('portfolio/',include('portfolio.urls',namespace='portfolio'))
+    path('portfolio/',include('portfolio.urls',namespace='portfolio')),
+    path('about/', include('about.urls',namespace='about')),
 ]
 
 
