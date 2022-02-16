@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'accounts',
+    'about',
     'bootstrap4',
     'market',
     'portfolio',

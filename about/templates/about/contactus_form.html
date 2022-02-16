@@ -1,5 +1,4 @@
-{% extends "templates/base.html" %} {% load bootstrap4 %}
-{% block content %}
+{% extends "base.html" %} {% load bootstrap4 %} {% block content %}
 
 <div class="container">
   <div class="row text-center">
@@ -15,11 +14,11 @@
     </div>
     <div class="col-sm-6">
       <form action="" method="POST">
-        {% csrf_token %} {% bootstrap_form form%} {% buttons %}
+        {% csrf_token %} {% bootstrap_form form %} {% buttons %}
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>
 </div>
-
+{% endbuttons %} 
 {% endblock %}
