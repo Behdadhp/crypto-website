@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.urls import reverse
 
 # Create your models here.
 
@@ -17,4 +18,4 @@ class ContactUs(models.Model):
         return self.email
 
     def get_absolute_url(self):
-        return reverse("")
+        return reverse("about:submitted")
