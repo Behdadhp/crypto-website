@@ -21,7 +21,7 @@
           </thead>
           {% for item in asset %}
           <tr>
-            <td>{{item.name}}</td>
+            <td><a href="{% url 'portfolio:detail' pk=item.id %}">{{item.name}}</a></td>
             <td>{{item.asset}}</td>
             <td>{{item.current_price}}</td>
             <td>{{item.value}}</td>

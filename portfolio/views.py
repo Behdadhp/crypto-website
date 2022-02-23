@@ -116,7 +116,7 @@ def total_assets(queryset_portfolio_user):
     portfolio=[]
     for item in queryset_portfolio_user:
         portfolio.append(({'type':item.type.coin,'amount':item.amount,
-        'status':item.status}))
+        'status':item.status,'id':item.id}))
 
     portfolioList = []
     unique = set()
@@ -128,17 +128,19 @@ def total_assets(queryset_portfolio_user):
         for j in range(len(portfolio)):
             if unique[i] == portfolio[j]['type'] and portfolio[j]['status'] == 'Buy':
                 asset += portfolio[j]['amount']
+                coin_id = portfolio[j]['id']
             elif unique[i] == portfolio[j]['type'] and portfolio[j]['status'] == 'Sell':
                 asset -= portfolio[j]['amount']
+                coin_id = portfolio[j]['id']
         for x in data:
             if x['name'] == unique[i]:
                 current_price = x['current_price']
         if asset > 0 :
             portfolioList.append({'name':unique[i],'asset':asset,
-            'current_price':current_price, 'value': asset * current_price})
+            'current_price':current_price, 'value': asset * current_price,'id':coin_id})
 
         elif asset < 0 :
             portfolioList.append({'name':unique[i],'asset': 'The asset can not be negative',
-            'current_price':current_price, 'value':0})
+            'current_price':current_price, 'value':0,'id':coin_id})
 
     return portfolioList
