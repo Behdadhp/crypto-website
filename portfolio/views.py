@@ -77,7 +77,6 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
                                 'status':j['status']})
 
         context['each_asset']= each_asset
-        context['test'] = queryset_portfoilio_id[0]
 # determination of each asset in portfolio
         portfolio=[]
         for item in queryset_portfolio_user:
