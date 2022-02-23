@@ -115,16 +115,13 @@ def total_assets(queryset_portfolio_user):
 
     portfolio=[]
     for item in queryset_portfolio_user:
-            portfolio.append(({'type':item.type.coin,'amount':item.amount,
-            'status':item.status}))
-
+        portfolio.append(({'type':item.type.coin,'amount':item.amount,
+        'status':item.status}))
 
     portfolioList = []
     unique = set()
     for i in range(len(portfolio)):
-        for j in range(len(data)):
-            if portfolio[i]['type'] == data[j]['name']:
-                unique.add(portfolio[i]['type'])
+        unique.add(portfolio[i]['type'])
     unique = list(unique)
     for i in range(len(unique)):
         asset = 0
