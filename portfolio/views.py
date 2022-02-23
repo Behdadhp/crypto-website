@@ -87,7 +87,6 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
 
 #  Total Asset of each coin:
         portfolioList = total_assets(queryset_portfolio_user)
-        context['asset']= portfolioList
 
 # Value of each coin in DetailView
         for i in queryset_market_values:
