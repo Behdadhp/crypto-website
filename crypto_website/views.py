@@ -14,13 +14,6 @@ class HomePage(TemplateView):
         return context
         
 
-# def crypto(request):
-#     # crypto_list= Market.objects.order_by('id')
-#     # crypto_dict = {"markets":crypto_list}
-#     crypto_dict = data
-#     return render(request,'index.html', context=crypto_dict)
-
-
 class WelcomePage(TemplateView):
     template_name='welcome.html'
 
