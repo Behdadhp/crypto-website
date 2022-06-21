@@ -66,3 +66,10 @@ class Portfolio():
         for item in self.creating_portfolio_lst():
             set_of_assets.add(item['type'])
         return list(set_of_assets)
+
+    def getting_current_price(self,coin_type):
+        for item in data:
+            if item['name'] == coin_type:
+                return item['current_price']
+            else:
+                pass
