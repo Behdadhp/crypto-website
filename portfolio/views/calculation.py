@@ -37,3 +37,9 @@ class Asset():
 
         return overal_of_each_asset
 
+class Portfolio():
+
+    def __init__(self, models, user_req):
+
+        self.query = models.objects
+        self.user_req = user_req
