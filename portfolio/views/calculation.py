@@ -60,3 +60,9 @@ class Portfolio():
                 })
 
         return portfolio_list
+
+    def creating_set_of_assets(self):
+        set_of_assets = set()
+        for item in self.creating_portfolio_lst():
+            set_of_assets.add(item['type'])
+        return list(set_of_assets)
