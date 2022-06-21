@@ -73,3 +73,13 @@ class Portfolio():
                 return item['current_price']
             else:
                 pass
+
+    def total_amount_of_asset(self,coin_type):
+        amount_of_asset = 0
+        for item in self.creating_portfolio_lst():
+            if item['type'] == coin_type and item['status'] =='Buy':
+                amount_of_asset += item['amount']
+            elif item['type'] == coin_type and item['status'] == 'Sell':
+                amount_of_asset -= item['amount']
+
+        return amount_of_asset
