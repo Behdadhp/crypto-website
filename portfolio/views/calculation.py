@@ -48,3 +48,15 @@ class Portfolio():
         queryset = self.query.filter(user_id = self.user_req)
 
         return queryset
+
+    def creating_portfolio_lst(self):
+        portfolio_list = []
+        for item in self.creating_query():
+            portfolio_list.append({
+                'type':item.type.coin,
+                'amount':item.amount,
+                'status':item.status,
+                'id':item.id
+                })
+
+        return portfolio_list
