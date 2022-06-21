@@ -112,3 +112,9 @@ class Portfolio():
             }
 
         return portfolio_dict
+
+    def run(self):
+        asset_list = []
+        for item in self.creating_set_of_assets():
+            asset_list.append(self.creating_portfolio_dict(item))
+        return asset_list
