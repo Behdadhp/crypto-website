@@ -88,3 +88,27 @@ class Portfolio():
         for item in self.creating_portfolio_lst():
             if item['type'] == coin_type:
                 return item['id']
+
+    def creating_portfolio_dict(self,coin_type):
+        portfolio_dict = {}
+        total_amount = self.total_amount_of_asset(coin_type)
+        current_price = self.getting_current_price(coin_type)
+        coin_id = self.getting_coin_id(coin_type)
+        if total_amount >= 0:
+            portfolio_dict={
+                                'name':coin_type,
+                                'asset':total_amount,
+                                'current_price':current_price,
+                                'value': '{:.2f}'.format( total_amount * current_price),
+                                'id': coin_id
+            }
+        else:
+            portfolio_dict={
+                                'name':coin_type,
+                                'asset':'Negativ',
+                                'current_price':current_price,
+                                'value': 'Error',
+                                'id': coin_id
+            }
+
+        return portfolio_dict
