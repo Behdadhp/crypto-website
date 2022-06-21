@@ -4,13 +4,14 @@ from portfolio import models
 from market.models import Market
 from braces.views import SelectRelatedMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CreatePortfolio
+from portfolio.forms import CreatePortfolio
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 User = get_user_model()
 from market.api import data
 from accounts.models import User
 from django.contrib.auth.decorators import login_required
+from portfolio.views.calculation import Asset, Portfolio
 
 
 
@@ -24,13 +25,13 @@ class PortfolioList(generic.ListView , LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        queryset_portfolio_user = models.Portfolio.objects.filter(user_id = self.request.user)
 
+        user_req = self.request.user
 
-#  Total Asset of each coin:
-        portfolioList = total_assets(queryset_portfolio_user)
-        context['asset']= portfolioList
+        instance_portfolio = Portfolio(models.Portfolio, user_req)
+        asset = instance_portfolio.run()
 
+        context['asset']=asset
         return context
 
 
@@ -60,42 +61,11 @@ class PortfolioDetail(generic.DetailView,LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        queryset_portfolio_user = models.Portfolio.objects.filter(user_id = self.request.user)
-        queryset_portfoilio_id = models.Portfolio.objects.filter(user_id = self.request.user, id=self.kwargs['pk']).values()
-        queryset_portfolio = models.Portfolio.objects.all()
-        queryset_market = models.Market.objects.all()
-        queryset_market_values = models.Market.objects.values()
-
-# determination of each asset in portfolio
-        coin = queryset_portfoilio_id[0]['type_id']
-        each_asset = []
-        for j in queryset_portfolio_user.values():
-            if j['type_id'] == coin:
-                each_asset.append({'amount':j['amount'],
-                                'price_paid':j['price_paid'],
-                                'date_created':j['date_created'],
-                                'status':j['status']})
-
-        context['each_asset']= each_asset
-# determination of each asset in portfolio
-        portfolio=[]
-        for item in queryset_portfolio_user:
-                portfolio.append(({'type':item.type.coin,'amount':item.amount,
-                'status':item.status}))
-        context ['portfolio'] = portfolio
-
-#  Total Asset of each coin:
-        portfolioList = total_assets(queryset_portfolio_user)
-
-# Value of each coin in DetailView
-        for i in queryset_market_values:
-            if coin == i['id']:
-                each_coin = i['coin']
-        for i in portfolioList:
-            if each_coin == i['name']:
-                overal = i['asset']
-        context['overal'] = overal
-
+        user_req = self.request.user
+        pk_req = self.kwargs['pk']
+        instance_asset = Asset(models.Portfolio,user_req, pk_req)
+        context['each_asset'] = instance_asset.each_asset()
+        context['overal'] = instance_asset.overal()
 
         return context
 
@@ -104,43 +74,3 @@ class PortfolioDelete(LoginRequiredMixin,generic.DeleteView):
     model = models.Portfolio
     success_url = reverse_lazy("portfolio:portfolio")
 
-
-
-
-
-# Function
-
-# Total asset of each coin
-def total_assets(queryset_portfolio_user):
-
-    portfolio=[]
-    for item in queryset_portfolio_user:
-        portfolio.append(({'type':item.type.coin,'amount':item.amount,
-        'status':item.status,'id':item.id}))
-
-    portfolioList = []
-    unique = set()
-    for i in range(len(portfolio)):
-        unique.add(portfolio[i]['type'])
-    unique = list(unique)
-    for i in range(len(unique)):
-        asset = 0
-        for j in range(len(portfolio)):
-            if unique[i] == portfolio[j]['type'] and portfolio[j]['status'] == 'Buy':
-                asset += portfolio[j]['amount']
-                coin_id = portfolio[j]['id']
-            elif unique[i] == portfolio[j]['type'] and portfolio[j]['status'] == 'Sell':
-                asset -= portfolio[j]['amount']
-                coin_id = portfolio[j]['id']
-        for x in data:
-            if x['name'] == unique[i]:
-                current_price = x['current_price']
-        if asset > 0 :
-            portfolioList.append({'name':unique[i],'asset':asset,
-            'current_price':current_price, 'value': asset * current_price,'id':coin_id})
-
-        elif asset < 0 :
-            portfolioList.append({'name':unique[i],'asset': 'The asset can not be negative',
-            'current_price':current_price, 'value':0,'id':coin_id})
-
-    return portfolioList
