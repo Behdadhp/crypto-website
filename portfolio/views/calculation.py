@@ -83,3 +83,8 @@ class Portfolio():
                 amount_of_asset -= item['amount']
 
         return amount_of_asset
+
+    def getting_coin_id(self,coin_type):
+        for item in self.creating_portfolio_lst():
+            if item['type'] == coin_type:
+                return item['id']
