@@ -1,5 +1,5 @@
 from django.urls import path
-from portfolio import views
+from portfolio.views import views
 from django.contrib.auth.decorators import login_required
 
 app_name='portfolio'
