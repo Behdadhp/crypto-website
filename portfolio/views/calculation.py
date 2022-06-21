@@ -43,3 +43,8 @@ class Portfolio():
 
         self.query = models.objects
         self.user_req = user_req
+
+    def creating_query(self):
+        queryset = self.query.filter(user_id = self.user_req)
+
+        return queryset
