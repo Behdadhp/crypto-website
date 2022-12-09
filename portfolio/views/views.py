@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views import generic
 from portfolio import models
 from market.models import Market
-from braces.views import SelectRelatedMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from portfolio.forms import CreatePortfolio
 from django.urls import reverse_lazy

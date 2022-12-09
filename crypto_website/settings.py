@@ -38,13 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
+    'bootstrap4',
     'accounts',
     'about',
-    'bootstrap4',
     'market',
     'portfolio',
-    'mathfilters'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'crypto_website.urls'
@@ -77,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'crypto_website.wsgi.application'
+# WSGI_APPLICATION = 'crypto_website.wsgi.application'
 
 
 # Database
@@ -142,5 +140,5 @@ LOGOUT_REDIRECT_URL = 'thanks'
 
 INTERNAL_IPS=['127.0.0.1']
 
-import django_heroku
-django_heroku.settings(locals())
+# import django_heroku
+# django_heroku.settings(locals())
