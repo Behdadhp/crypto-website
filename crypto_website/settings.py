@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-wjb*9_r=&p_ef+pnxkmdci1=a$)gjhkiag3x7_hh&au=svz1td
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['crypto-portfolio-asset.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['behdadhp.pythonanywhere.com']
 
 
 # Application definition
