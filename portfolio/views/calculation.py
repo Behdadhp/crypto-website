@@ -27,15 +27,15 @@ class Asset:
 
         return each_asset
 
-    def overal(self):
-        overal_of_each_asset = 0
+    def overall(self):
+        overall_of_each_asset = 0
         for i in self.each_asset():
             if i['status'] == 'Buy':
-                overal_of_each_asset += i['amount']
+                overall_of_each_asset += i['amount']
             else:
-                overal_of_each_asset -= i['amount']
+                overall_of_each_asset -= i['amount']
 
-        return overal_of_each_asset
+        return overall_of_each_asset
 
 
 class Portfolio:

@@ -48,7 +48,7 @@ class PortfolioDetail(generic.DetailView, LoginRequiredMixin):
         pk_req = self.kwargs['pk']
         instance_asset = Asset(models.Portfolio, user_req, pk_req)
         context['each_asset'] = instance_asset.each_asset()
-        context['overal'] = instance_asset.overal()
+        context['overall'] = instance_asset.overall()
 
         return context
 
