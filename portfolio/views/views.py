@@ -3,10 +3,7 @@ from portfolio import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from portfolio.forms import CreatePortfolio
 from django.urls import reverse_lazy
-from django.contrib.auth import get_user_model
 from portfolio.views.calculation import Asset, Portfolio
-
-User = get_user_model()
 
 
 class PortfolioList(generic.ListView, LoginRequiredMixin):

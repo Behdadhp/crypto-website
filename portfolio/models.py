@@ -31,6 +31,3 @@ class Portfolio(models.Model):
 
     def get_absolute_url(self):
         return reverse("portfolio:portfolio")
-
-    # class Meta:
-    #     ordering = ["-date_created"]
