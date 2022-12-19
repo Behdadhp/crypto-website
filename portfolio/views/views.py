@@ -13,9 +13,9 @@ class PortfolioList(generic.ListView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        user_req = self.request.user
+        user = self.request.user
 
-        instance_portfolio = Portfolio(models.Portfolio, user_req)
+        instance_portfolio = Portfolio(models.Portfolio, user)
         asset = instance_portfolio.run()
 
         context['asset'] = asset
@@ -41,12 +41,11 @@ class PortfolioDetail(generic.DetailView, LoginRequiredMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        user_req = self.request.user
-        pk_req = self.kwargs['pk']
-        instance_asset = Asset(models.Portfolio, user_req, pk_req)
+        user = self.request.user
+        pk = self.kwargs['pk']
+        instance_asset = Asset(models.Portfolio, user, pk)
         context['each_asset'] = instance_asset.each_asset()
         context['overall'] = instance_asset.overall()
-
         return context
 
 

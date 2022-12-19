@@ -1,22 +1,27 @@
 from market.api import data
+from decimal import Decimal
 
 
-class Asset:
+class Query:
 
-    def __init__(self, models, user_req, pk_req):
-        self.query = models.objects
-        self.user_req = user_req
-        self.pk_req = pk_req
+    def __init__(self, model, user, pk=None):
+        self.model = model.objects
+        self.user = user
+        self.pk = pk
 
-    def creating_query(self):
-        queryset = self.query.filter(user_id=self.user_req, id=self.pk_req).values()
+    def create_detail_query_portfolio(self):
+        return self.model.filter(user_id=self.user, id=self.pk).values()
 
-        return queryset
+    def create_list_query_portfolio(self):
+        return self.model.filter(user_id=self.user)
+
+
+class Asset(Query):
 
     def each_asset(self):
         each_asset = []
-        coin = self.creating_query()
-        for i in self.query.filter(user_id=self.user_req).values():
+        coin = self.create_detail_query_portfolio()
+        for i in self.model.filter(user_id=self.user).values():
             if i['type_id'] == coin[0]['type_id']:
                 each_asset.append({
                     'amount': i['amount'],
@@ -38,21 +43,11 @@ class Asset:
         return overall_of_each_asset
 
 
-class Portfolio:
-
-    def __init__(self, models, user_req):
-
-        self.query = models.objects
-        self.user_req = user_req
-
-    def creating_query(self):
-        queryset = self.query.filter(user_id=self.user_req)
-
-        return queryset
+class Portfolio(Query):
 
     def creating_portfolio_lst(self):
         portfolio_list = []
-        for item in self.creating_query():
+        for item in self.create_list_query_portfolio():
             portfolio_list.append({
                 'type': item.type.coin,
                 'amount': item.amount,
@@ -91,26 +86,16 @@ class Portfolio:
                 return item['id']
 
     def creating_portfolio_dict(self, coin_type):
-        portfolio_dict = {}
         total_amount = self.total_amount_of_asset(coin_type)
         current_price = self.getting_current_price(coin_type)
         coin_id = self.getting_coin_id(coin_type)
-        if total_amount >= 0:
-            portfolio_dict = {
-                'name': coin_type,
-                'asset': total_amount,
-                'current_price': current_price,
-                'value': '{:.2f}'.format(total_amount * current_price),
-                'id': coin_id
-            }
-        else:
-            portfolio_dict = {
-                'name': coin_type,
-                'asset': 'Negativ',
-                'current_price': current_price,
-                'value': 'Error',
-                'id': coin_id
-            }
+        portfolio_dict = {
+            'name': coin_type,
+            'asset': round(total_amount, 5),
+            'current_price': current_price if total_amount >= 0 else 'Negative',
+            'value': '{:.2f}'.format(total_amount * current_price) if total_amount >= 0 else 'Error',
+            'id': coin_id
+        }
 
         return portfolio_dict
 
