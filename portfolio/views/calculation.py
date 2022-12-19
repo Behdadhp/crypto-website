@@ -1,7 +1,7 @@
 from market.api import data
 
 
-class Asset():
+class Asset:
 
     def __init__(self, models, user_req, pk_req):
         self.query = models.objects
@@ -38,7 +38,7 @@ class Asset():
         return overal_of_each_asset
 
 
-class Portfolio():
+class Portfolio:
 
     def __init__(self, models, user_req):
 
