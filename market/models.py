@@ -8,7 +8,7 @@ class Market(models.Model):
     price = models.FloatField(max_length=16)
 
     def __str__(self):
-        return (self.coin)
+        return self.coin
 
     def get_absolute_url(self):
         return reverse("market:market_list")
