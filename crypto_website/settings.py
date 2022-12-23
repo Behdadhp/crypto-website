@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'about',
     'market',
     'portfolio',
+    'django_tables2'
 ]
 
 MIDDLEWARE = [

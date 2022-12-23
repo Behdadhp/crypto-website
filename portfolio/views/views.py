@@ -1,21 +1,31 @@
 from django.views import generic
+from django_tables2 import SingleTableView
+
 from portfolio import models
 from django.contrib.auth.mixins import LoginRequiredMixin
 from portfolio.forms import CreatePortfolio
 from django.urls import reverse_lazy
-from portfolio.views.calculation import Asset, Portfolio
+
+from portfolio.tables import ActivityTable
+from portfolio.views import calculation as calc
 
 
-class PortfolioList(generic.ListView, LoginRequiredMixin):
-    context_object_name = 'portfolio_lists'
-    queryset = models.Portfolio.objects.all().order_by('-date_created')
+class PortfolioList(LoginRequiredMixin, SingleTableView):
+    table_class = ActivityTable
+    table_pagination = {"per_page": 5}
+
+    def get_queryset(self):
+        return models.Portfolio.objects.all().filter(user_id=self.get_user()).order_by('-date_created')
+
+    def get_user(self):
+        return self.request.user
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        user = self.request.user
+        user = self.get_user()
 
-        instance_portfolio = Portfolio(models.Portfolio, user)
+        instance_portfolio = calc.Portfolio(models.Portfolio, user)
         asset = instance_portfolio.run()
 
         context['asset'] = asset
@@ -43,7 +53,7 @@ class PortfolioDetail(generic.DetailView, LoginRequiredMixin):
 
         user = self.request.user
         pk = self.kwargs['pk']
-        instance_asset = Asset(models.Portfolio, user, pk)
+        instance_asset = calc.Asset(models.Portfolio, user, pk)
         context['each_asset'] = instance_asset.each_asset()
         context['overall'] = instance_asset.overall()
         return context
