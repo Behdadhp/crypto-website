@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <div class="text-center">
-  <h1>Market</h1>
+  <h1>Market in Detail</h1>
   <div class="container shadow-lg p-3 mb-5 bg-body rounded">
     <table class="table table-striped container">
       <thead>
@@ -9,25 +9,26 @@
         <td>Symbol</td>
         <td>Price $</td>
         <td>Market Cap</td>
+        <td>high in 24h $</td>
+        <td>low in 24h $</td>
+        <td>Circulating Supply</td>
+        <td>Total Supply</td>
       </thead>
 
       {% for item in data %}
-
       <tr>
         <td>{{item.market_cap_rank}}</td>
         <td>{{item.name}}</td>
         <td>{{item.symbol}}</td>
         <td>{{item.current_price}}</td>
         <td>{{item.market_cap}}</td>
+        <td>{{item.high_24h}}</td>
+        <td>{{item.low_24h}}</td>
+        <td>{{item.circulating_supply}}</td>
+        <td>{{item.total_supply}}</td>
       </tr>
       {% endfor %}
     </table>
-  </div>
-
-  <div class="text-center">
-    <a class="btn btn-primary" href="{% url 'market:more' %}"
-      >Show More Details</a
-    >
   </div>
 
   {% endblock %}

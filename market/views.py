@@ -1,5 +1,4 @@
-from . import models
-from django.views.generic import (TemplateView, ListView, UpdateView)
+from django.views.generic import (ListView, UpdateView)
 from portfolio import models
 from .api import data
 
@@ -10,17 +9,6 @@ class MarketListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['data'] = data
-
-        return context
-
-
-class MarketListMoreView(TemplateView):
-    template_name = 'market/market_list_more.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['portfolios'] = models.Portfolio.objects.all()
         context['data'] = data
 
         return context
