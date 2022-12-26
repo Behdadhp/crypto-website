@@ -1,32 +1,23 @@
 {% extends "base.html" %} {% block content %}
-<div class="container">
-  <div class="row text-center">
-    <div class="col-sm-6">
-      <h1>Welcome to the Crpyto Portfolio website</h1><br>
-      <p>At the moment this assets are supported:</p>
-      <p class="text-muted">Bitcoin, Ethereum, Binance Coin, Cardano, Tether</p>
-      <p> Market prices are updated every 10 minutes </p>
+
+    {% load render_table from django_tables2 %}
+
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-6">
+                <h1>Welcome to the Crpyto Portfolio website</h1><br>
+                <p>At the moment this assets are supported:</p>
+                <p class="text-muted">Bitcoin, Ethereum, Binance Coin, Cardano, Tether</p>
+                <p> Market prices are updated every 10 minutes </p>
+            </div>
+            <div class="col-sm-6">
+                <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+                    <table class="table table-striped">
+                        {% render_table table %}
+                    </table>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-6">
-      <div class="container shadow-lg p-3 mb-5 bg-body rounded">
-        <table class="table table-striped">
-          <thead>
-            <td>Rank</td>
-            <td>Coin</td>
-            <td>Price ($)</td>
-          </thead>
-          {% for market in data %}
-          <tr>
-            <td>{{market.market_cap_rank}}</td>
-            <td>{{market.name}}</td>
-            <td>{{market.current_price}}</td>
-          </tr>
-          {% endfor %}
-        </table>
-        <ul>
-          {% endblock %}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+{% endblock %}
