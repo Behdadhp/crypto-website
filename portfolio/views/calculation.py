@@ -9,38 +9,8 @@ class Query:
         self.user = user
         self.pk = pk
 
-    def create_detail_query_portfolio(self):
-        return self.model.filter(user_id=self.user, id=self.pk).values()
-
     def create_list_query_portfolio(self):
         return self.model.filter(user_id=self.user)
-
-
-class Asset(Query):
-
-    def each_asset(self):
-        each_asset = []
-        coin = self.create_detail_query_portfolio()
-        for i in self.model.filter(user_id=self.user).values():
-            if i['type_id'] == coin[0]['type_id']:
-                each_asset.append({
-                    'amount': i['amount'],
-                    'price_paid': i['price_paid'],
-                    'date_created': i['date_created'],
-                    'status': i['status']
-                })
-
-        return each_asset
-
-    def overall(self):
-        overall_of_each_asset = 0
-        for i in self.each_asset():
-            if i['status'] == 'Buy':
-                overall_of_each_asset += i['amount']
-            else:
-                overall_of_each_asset -= i['amount']
-
-        return overall_of_each_asset
 
 
 class Portfolio(Query):

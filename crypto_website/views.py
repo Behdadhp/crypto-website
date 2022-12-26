@@ -1,13 +1,17 @@
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView
+from django_tables2 import MultiTableMixin
+
+from crypto_website import tables
 from market.api import data
 
 
-class HomePage(TemplateView):
+class HomePage(TemplateView, MultiTableMixin):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['data'] = data
+        table = tables.IndexMarketTable(data[:10])
+        context["table"] = table
 
         return context
 
